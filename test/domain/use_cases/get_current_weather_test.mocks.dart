@@ -6,8 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:clean_architecture/core/error/failure.dart' as _i5;
-import 'package:clean_architecture/data/models/current_weather_model.dart'
-    as _i6;
+import 'package:clean_architecture/domain/entities/current_weather.dart' as _i6;
 import 'package:clean_architecture/domain/repositories/weather_api_repository.dart'
     as _i2;
 import 'package:fpdart/fpdart.dart' as _i4;
@@ -37,22 +36,21 @@ class MockWeatherApiRepository extends _i1.Mock
   }
 
   @override
-  _i3.Future<
-      _i4.Either<_i5.Failure, _i6.CurrentWeatherModel>> getCurrentWeather(
+  _i3.Future<_i4.Either<_i5.Failure, _i6.CurrentWeather>> getCurrentWeather(
           String? city) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCurrentWeather,
           [city],
         ),
-        returnValue: _i3
-            .Future<_i4.Either<_i5.Failure, _i6.CurrentWeatherModel>>.value(
-            _i7.dummyValue<_i4.Either<_i5.Failure, _i6.CurrentWeatherModel>>(
+        returnValue:
+            _i3.Future<_i4.Either<_i5.Failure, _i6.CurrentWeather>>.value(
+                _i7.dummyValue<_i4.Either<_i5.Failure, _i6.CurrentWeather>>(
           this,
           Invocation.method(
             #getCurrentWeather,
             [city],
           ),
         )),
-      ) as _i3.Future<_i4.Either<_i5.Failure, _i6.CurrentWeatherModel>>);
+      ) as _i3.Future<_i4.Either<_i5.Failure, _i6.CurrentWeather>>);
 }

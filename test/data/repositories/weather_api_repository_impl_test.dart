@@ -3,6 +3,7 @@ import 'package:clean_architecture/core/error/failure.dart';
 import 'package:clean_architecture/data/data_sources/remote/weather_api_remote_source.dart';
 import 'package:clean_architecture/data/models/current_weather_model.dart';
 import 'package:clean_architecture/data/repositories/weather_api_repository_impl.dart';
+import 'package:clean_architecture/domain/entities/current_weather.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
@@ -26,6 +27,7 @@ void main() {
     test('should call getCurrentWeather from WeatherApiRemoteSource', () async {
       // Arrange
       const tCity = 'London';
+      final tLastUpdated = DateTime.now();
       final tCurrentWeatherModel = CurrentWeatherModel(
         location: const WeatherApiLocationModel(
           name: 'London',
@@ -33,7 +35,7 @@ void main() {
           country: 'United Kingdom',
         ),
         data: WeatherApiDataModel(
-          lastUpdated: DateTime.now(),
+          lastUpdated: tLastUpdated,
           tempC: 4.0,
           condition: const WeatherApiConditionModel(
             text: 'Sunny',
@@ -55,7 +57,7 @@ void main() {
       final result = await weatherApiRepositoryImpl.getCurrentWeather(tCity);
 
       // Assert
-      expect(result, isA<Right<Failure, CurrentWeatherModel>>());
+      expect(result, isA<Right<Failure, CurrentWeather>>());
       expect(result.isRight(), true);
       verify(mockWeatherApiRemoteSource.getCurrentWeather(tCity));
       verifyNoMoreInteractions(mockWeatherApiRemoteSource);

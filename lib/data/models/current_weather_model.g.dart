@@ -34,6 +34,7 @@ WeatherApiDataModel _$WeatherApiDataModelFromJson(Map<String, dynamic> json) =>
     WeatherApiDataModel(
       lastUpdated: DateTime.parse(json['last_updated'] as String),
       tempC: (json['temp_c'] as num).toDouble(),
+      feelslikeC: (json['feelslike_c'] as num).toDouble(),
       condition: WeatherApiConditionModel.fromJson(
           json['condition'] as Map<String, dynamic>),
       windKph: (json['wind_kph'] as num).toDouble(),
@@ -41,6 +42,8 @@ WeatherApiDataModel _$WeatherApiDataModelFromJson(Map<String, dynamic> json) =>
       precipMm: (json['precip_mm'] as num).toDouble(),
       humidity: json['humidity'] as int,
       cloud: json['cloud'] as int,
+      visKm: (json['vis_km'] as num).toDouble(),
+      uv: (json['uv'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$WeatherApiDataModelToJson(
@@ -48,12 +51,15 @@ Map<String, dynamic> _$WeatherApiDataModelToJson(
     <String, dynamic>{
       'last_updated': instance.lastUpdated.toIso8601String(),
       'temp_c': instance.tempC,
+      'feelslike_c': instance.feelslikeC,
       'condition': instance.condition,
       'wind_kph': instance.windKph,
       'wind_dir': instance.windDir,
       'precip_mm': instance.precipMm,
       'humidity': instance.humidity,
       'cloud': instance.cloud,
+      'vis_km': instance.visKm,
+      'uv': instance.uv,
     };
 
 WeatherApiConditionModel _$WeatherApiConditionModelFromJson(

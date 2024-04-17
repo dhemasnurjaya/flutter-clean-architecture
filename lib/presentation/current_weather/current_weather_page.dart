@@ -70,14 +70,23 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           GridView.count(
             crossAxisCount: 3,
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               _buildDataCard(
                 'Temp (C)',
                 '${state.currentWeather.tempC ?? '-'}',
               ),
               _buildDataCard(
+                'Feels Like (C)',
+                '${state.currentWeather.feelslikeC ?? '-'}',
+              ),
+              _buildDataCard(
                 'Wind (km/h)',
                 '${state.currentWeather.windKph ?? '-'}',
+              ),
+              _buildDataCard(
+                'Wind Dir',
+                state.currentWeather.windDir,
               ),
               _buildDataCard(
                 'Precip (mm)',
@@ -91,8 +100,18 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                 'Cloud (%)',
                 '${state.currentWeather.cloud ?? '-'}',
               ),
+              _buildDataCard(
+                'Vis (km)',
+                '${state.currentWeather.visKm ?? '-'}',
+              ),
+              _buildDataCard(
+                'UV',
+                '${state.currentWeather.uv ?? '-'}',
+              ),
             ],
           ),
+          const SizedBox(height: 16),
+          Text('Last Updated: ${state.currentWeather.lastUpdated}'),
         ],
       );
     }

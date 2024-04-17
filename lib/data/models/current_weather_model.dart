@@ -22,22 +22,28 @@ class CurrentWeatherModel extends WeatherApiResponseModel {
 class WeatherApiDataModel {
   final DateTime lastUpdated;
   final double tempC;
+  final double feelslikeC;
   final WeatherApiConditionModel condition;
   final double windKph;
   final String windDir;
   final double precipMm;
   final int humidity;
   final int cloud;
+  final double visKm;
+  final double uv;
 
   const WeatherApiDataModel({
     required this.lastUpdated,
     required this.tempC,
+    required this.feelslikeC,
     required this.condition,
     required this.windKph,
     required this.windDir,
     required this.precipMm,
     required this.humidity,
     required this.cloud,
+    required this.visKm,
+    required this.uv,
   });
 
   factory WeatherApiDataModel.fromJson(Map<String, dynamic> json) =>

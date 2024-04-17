@@ -37,6 +37,7 @@ void main() {
         data: WeatherApiDataModel(
           lastUpdated: tLastUpdated,
           tempC: 4.0,
+          feelslikeC: 2.0,
           condition: const WeatherApiConditionModel(
             text: 'Sunny',
             icon: '//cdn.weatherapi.com/weather/64x64/day/113.png',
@@ -46,6 +47,8 @@ void main() {
           precipMm: 0.0,
           humidity: 81,
           cloud: 0,
+          visKm: 10.0,
+          uv: 6.0,
         ),
         error: null,
       );

@@ -14,8 +14,10 @@ dependencies:
   flutter_bloc: ^8.1.5
   fpdart: ^1.1.0
   get_it: ^7.7.0
+  google_fonts: ^6.2.1
   http: ^1.2.1
   json_annotation: ^4.8.1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

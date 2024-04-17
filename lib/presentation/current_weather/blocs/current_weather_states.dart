@@ -27,11 +27,16 @@ class CurrentWeatherLoadedState extends CurrentWeatherState {
   List<Object?> get props => [currentWeather];
 }
 
-class CurrentWeatherErrorState extends CurrentWeatherState {
+class CurrentWeatherErrorState extends CurrentWeatherState
+    implements ErrorState {
+  @override
   final String message;
 
-  const CurrentWeatherErrorState({required this.message});
+  @override
+  final Exception? cause;
+
+  const CurrentWeatherErrorState({required this.message, this.cause});
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, cause];
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:clean_architecture/core/router/app_router.dart';
 import 'package:clean_architecture/presentation/current_weather/blocs/current_weather_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,14 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Current Weather'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              context.router.push(const AppSettingsRoute());
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
         builder: (context, state) {
@@ -115,7 +124,10 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
             ],
           ),
           const SizedBox(height: 16),
-          Text('Last Updated: ${state.currentWeather.lastUpdated}'),
+          Text(
+            'Last Updated: ${state.currentWeather.lastUpdated}',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
         ],
       );
     }

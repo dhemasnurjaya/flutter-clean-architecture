@@ -1,3 +1,4 @@
+import 'package:clean_architecture/core/presentation/bloc/error_state.dart';
 import 'package:clean_architecture/domain/entities/current_weather.dart';
 import 'package:clean_architecture/domain/use_cases/get_current_weather.dart';
 import 'package:equatable/equatable.dart';

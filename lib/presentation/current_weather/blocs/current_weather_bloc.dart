@@ -21,9 +21,11 @@ class CurrentWeatherBloc
     Emitter<CurrentWeatherState> emit,
   ) async {
     emit(const CurrentWeatherLoadingState());
+
     final result = await getCurrentWeather.execute(
       GetCurrentWeatherParams(city: event.city),
     );
+
     result.fold(
       (l) => emit(CurrentWeatherErrorState(message: l.message)),
       (r) => emit(CurrentWeatherLoadedState(currentWeather: r)),

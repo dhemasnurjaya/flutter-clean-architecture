@@ -23,17 +23,26 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
       body: BlocBuilder<CurrentWeatherBloc, CurrentWeatherState>(
         builder: (context, state) {
           return ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
               TextField(
                 controller: _cityTextCtl,
                 decoration: const InputDecoration(
-                  label: Text('City'),
+                  hintText: 'City',
                 ),
               ),
+              const SizedBox(height: 8),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<CurrentWeatherBloc>().add(
+                        GetCurrentWeatherEvent(
+                          city: _cityTextCtl.text,
+                        ),
+                      );
+                },
                 child: const Text('Get Weather'),
               ),
+              const SizedBox(height: 16),
               _buildWeather(state),
             ],
           );
@@ -44,22 +53,75 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
 
   Widget _buildWeather(CurrentWeatherState state) {
     if (state is CurrentWeatherLoadedState) {
+      final weatherIconUrl =
+          'https:${state.currentWeather.conditionIcon ?? '//placehold.co/64x64/png'}';
+
       return Column(
         children: [
-          Text(state.currentWeather.conditionIcon),
-          Text(state.currentWeather.conditionText),
-          Text(state.currentWeather.tempC.toString()),
-          Text(state.currentWeather.windKph.toString()),
-          Text(state.currentWeather.precipMm.toString()),
-          Text(state.currentWeather.humidity.toString()),
-          Text(state.currentWeather.cloud.toString()),
-          Text(state.currentWeather.locationName ?? ''),
-          Text(state.currentWeather.locationRegion ?? ''),
-          Text(state.currentWeather.locationCountry ?? ''),
+          Image.network(weatherIconUrl),
+          Text(
+            state.currentWeather.conditionText ?? '-',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Text(
+              '${state.currentWeather.locationName}, ${state.currentWeather.locationRegion}'),
+          Text('${state.currentWeather.locationCountry}'),
+          const SizedBox(height: 16),
+          GridView.count(
+            crossAxisCount: 3,
+            shrinkWrap: true,
+            children: [
+              _buildDataCard(
+                'Temp (C)',
+                '${state.currentWeather.tempC ?? '-'}',
+              ),
+              _buildDataCard(
+                'Wind (km/h)',
+                '${state.currentWeather.windKph ?? '-'}',
+              ),
+              _buildDataCard(
+                'Precip (mm)',
+                '${state.currentWeather.precipMm ?? '-'}',
+              ),
+              _buildDataCard(
+                'Humidity (%)',
+                '${state.currentWeather.humidity ?? '-'}',
+              ),
+              _buildDataCard(
+                'Cloud (%)',
+                '${state.currentWeather.cloud ?? '-'}',
+              ),
+            ],
+          ),
         ],
       );
-    } else {
-      return const CircularProgressIndicator();
     }
+
+    if (state is CurrentWeatherLoadingState) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state is CurrentWeatherErrorState) {
+      return Text(state.message);
+    }
+
+    return const SizedBox();
+  }
+
+  Widget _buildDataCard(String header, String? content) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(header, textAlign: TextAlign.center),
+          Text(
+            content ?? '-',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ],
+      ),
+    );
   }
 }

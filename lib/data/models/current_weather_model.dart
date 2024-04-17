@@ -6,7 +6,7 @@ part 'current_weather_model.g.dart';
 @JsonSerializable()
 class CurrentWeatherModel extends WeatherApiResponseModel {
   @JsonKey(name: 'current')
-  final WeatherApiDataModel data;
+  final WeatherApiDataModel? data;
 
   CurrentWeatherModel({
     required this.data,

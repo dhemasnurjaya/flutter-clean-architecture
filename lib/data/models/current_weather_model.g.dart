@@ -8,8 +8,10 @@ part of 'current_weather_model.dart';
 
 CurrentWeatherModel _$CurrentWeatherModelFromJson(Map<String, dynamic> json) =>
     CurrentWeatherModel(
-      data:
-          WeatherApiDataModel.fromJson(json['current'] as Map<String, dynamic>),
+      data: json['current'] == null
+          ? null
+          : WeatherApiDataModel.fromJson(
+              json['current'] as Map<String, dynamic>),
       location: json['location'] == null
           ? null
           : WeatherApiLocationModel.fromJson(

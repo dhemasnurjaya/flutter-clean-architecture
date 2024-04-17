@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'injection_container.dart' as ic;
 
 void main() {
+  ic.setup();
   runApp(WeatherApp());
 }
 

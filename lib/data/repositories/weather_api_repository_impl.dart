@@ -14,6 +14,11 @@ class WeatherApiRepositoryImpl implements WeatherApiRepository {
   Future<Either<Failure, CurrentWeather>> getCurrentWeather(String city) async {
     try {
       final result = await weatherApiRemoteSource.getCurrentWeather(city);
+
+      if (result.error != null) {
+        return left(ServerFailure(message: result.error!.message));
+      }
+
       final entity = CurrentWeather.fromModel(result);
       return right(entity);
     } on Exception catch (e) {

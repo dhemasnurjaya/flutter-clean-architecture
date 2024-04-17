@@ -13,6 +13,7 @@ class CurrentWeatherPage extends StatefulWidget {
 
 class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   final _cityTextCtl = TextEditingController();
+  final _cityTextFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
             children: [
               TextField(
                 controller: _cityTextCtl,
+                focusNode: _cityTextFocus,
                 decoration: const InputDecoration(
                   hintText: 'City',
                 ),
@@ -53,6 +55,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
 
   Widget _buildWeather(CurrentWeatherState state) {
     if (state is CurrentWeatherLoadedState) {
+      _cityTextFocus.unfocus();
+
       final weatherIconUrl =
           'https:${state.currentWeather.conditionIcon ?? '//placehold.co/64x64/png'}';
 

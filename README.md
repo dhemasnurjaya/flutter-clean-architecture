@@ -1,3 +1,3 @@
 # clean_architecture
 
-A new Flutter project.
+Flutter Clean Architecture project starter.

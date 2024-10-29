@@ -40,8 +40,8 @@ WeatherApiDataModel _$WeatherApiDataModelFromJson(Map<String, dynamic> json) =>
       windKph: (json['wind_kph'] as num).toDouble(),
       windDir: json['wind_dir'] as String,
       precipMm: (json['precip_mm'] as num).toDouble(),
-      humidity: json['humidity'] as int,
-      cloud: json['cloud'] as int,
+      humidity: (json['humidity'] as num).toInt(),
+      cloud: (json['cloud'] as num).toInt(),
       visKm: (json['vis_km'] as num).toDouble(),
       uv: (json['uv'] as num).toDouble(),
     );

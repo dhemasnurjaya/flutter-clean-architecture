@@ -1,5 +1,6 @@
 import 'package:clean_architecture/core/data/local/config.dart';
 import 'package:clean_architecture/core/data/local/theme_mode_config.dart';
+import 'package:clean_architecture/core/env.dart';
 import 'package:clean_architecture/core/network/network.dart';
 import 'package:clean_architecture/core/presentation/theme/theme_mode_cubit.dart';
 import 'package:clean_architecture/features/weather/data/data_sources/remote/weather_api_remote_data_source.dart';
@@ -14,6 +15,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 final getIt = GetIt.instance;
 
 void setup() {
+  // env
+  getIt.registerSingleton<Env>(EnvImpl());
+
   // network
   getIt.registerLazySingleton<Network>(() => NetworkImpl());
 
@@ -34,6 +38,7 @@ void setup() {
   // data sources
   getIt.registerLazySingleton<WeatherApiRemoteDataSource>(
     () => WeatherApiRemoteDataSourceImpl(
+      env: getIt(),
       network: getIt(),
     ),
   );

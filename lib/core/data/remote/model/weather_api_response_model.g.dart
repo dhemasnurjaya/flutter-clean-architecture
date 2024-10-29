@@ -45,7 +45,7 @@ Map<String, dynamic> _$WeatherApiLocationModelToJson(
 WeatherApiErrorModel _$WeatherApiErrorModelFromJson(
         Map<String, dynamic> json) =>
     WeatherApiErrorModel(
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
       message: json['message'] as String,
     );
 

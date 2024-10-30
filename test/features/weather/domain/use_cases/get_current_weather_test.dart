@@ -4,12 +4,10 @@ import 'package:clean_architecture/features/weather/domain/repositories/weather_
 import 'package:clean_architecture/features/weather/domain/use_cases/get_current_weather.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'get_current_weather_test.mocks.dart';
+class MockWeatherApiRepository extends Mock implements WeatherApiRepository {}
 
-@GenerateMocks([WeatherApiRepository])
 void main() {
   late GetCurrentWeather useCase;
   late MockWeatherApiRepository weatherApiRepository;
@@ -38,8 +36,7 @@ void main() {
       locationCountry: '',
     );
 
-    provideDummy<Either<Failure, CurrentWeather>>(right(tCurrentWeather));
-    when(weatherApiRepository.getCurrentWeather(tCity))
+    when(() => weatherApiRepository.getCurrentWeather(tCity))
         .thenAnswer((_) async => right(tCurrentWeather));
 
     // Act
@@ -48,7 +45,7 @@ void main() {
     // Assert
     expect(result, isA<Right<Failure, CurrentWeather>>());
     expect(result.isRight(), true);
-    verify(weatherApiRepository.getCurrentWeather(tCity));
+    verify(() => weatherApiRepository.getCurrentWeather(tCity));
     verifyNoMoreInteractions(weatherApiRepository);
   });
 }

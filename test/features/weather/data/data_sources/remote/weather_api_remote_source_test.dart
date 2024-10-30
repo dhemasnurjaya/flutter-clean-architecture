@@ -3,13 +3,14 @@ import 'package:clean_architecture/core/network/network.dart';
 import 'package:clean_architecture/features/weather/data/data_sources/remote/weather_api_remote_data_source.dart';
 import 'package:clean_architecture/features/weather/data/models/current_weather_model.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../../_responses/_response.dart';
-import 'weather_api_remote_source_test.mocks.dart';
 
-@GenerateMocks([Env, Network])
+class MockEnv extends Mock implements Env {}
+
+class MockNetwork extends Mock implements Network {}
+
 void main() {
   late MockEnv mockEnv;
   late MockNetwork mockNetwork;
@@ -22,6 +23,8 @@ void main() {
       env: mockEnv,
       network: mockNetwork,
     );
+
+    registerFallbackValue(Uri());
   });
 
   group('getCurrentWeather', () {
@@ -31,9 +34,9 @@ void main() {
       const tCity = 'London';
       final tResponse = readResponse('current_weather');
 
-      when(mockEnv.weatherApiKey).thenReturn('api_key');
-      when(mockEnv.weatherApiHost).thenReturn('api_host');
-      when(mockNetwork.get(any)).thenAnswer(
+      when(() => mockEnv.weatherApiKey).thenReturn('api_key');
+      when(() => mockEnv.weatherApiHost).thenReturn('api_host');
+      when(() => mockNetwork.get(any())).thenAnswer(
         (_) async => tResponse,
       );
 

@@ -6,12 +6,11 @@ import 'package:clean_architecture/features/weather/data/repositories/weather_ap
 import 'package:clean_architecture/features/weather/domain/entities/current_weather.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'weather_api_repository_impl_test.mocks.dart';
+class MockWeatherApiRemoteDataSource extends Mock
+    implements WeatherApiRemoteDataSource {}
 
-@GenerateMocks([WeatherApiRemoteDataSource])
 void main() {
   late MockWeatherApiRemoteDataSource mockWeatherApiRemoteSource;
   late WeatherApiRepositoryImpl weatherApiRepositoryImpl;
@@ -53,7 +52,7 @@ void main() {
         error: null,
       );
 
-      when(mockWeatherApiRemoteSource.getCurrentWeather(tCity))
+      when(() => mockWeatherApiRemoteSource.getCurrentWeather(tCity))
           .thenAnswer((_) async => tCurrentWeatherModel);
 
       // Act
@@ -62,7 +61,7 @@ void main() {
       // Assert
       expect(result, isA<Right<Failure, CurrentWeather>>());
       expect(result.isRight(), true);
-      verify(mockWeatherApiRemoteSource.getCurrentWeather(tCity));
+      verify(() => mockWeatherApiRemoteSource.getCurrentWeather(tCity));
       verifyNoMoreInteractions(mockWeatherApiRemoteSource);
     });
   });

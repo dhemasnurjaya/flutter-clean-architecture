@@ -14,14 +14,16 @@ abstract class Network {
 
 /// Network implementation
 class NetworkImpl implements Network {
-  final _client = http.Client();
+  NetworkImpl(http.Client httpClient) : _httpClient = httpClient;
+
+  final http.Client _httpClient;
 
   @override
   Future<String> get(
     Uri uri, {
     Map<String, String>? headers,
   }) async {
-    final response = await _client.get(
+    final response = await _httpClient.get(
       uri,
       headers: headers,
     );

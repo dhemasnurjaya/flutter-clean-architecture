@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:http/http.dart' as http;
+
 final getIt = GetIt.instance;
 
 void setup() {
@@ -19,7 +21,8 @@ void setup() {
   getIt.registerSingleton<Env>(EnvImpl());
 
   // network
-  getIt.registerLazySingleton<Network>(() => NetworkImpl());
+  getIt.registerLazySingleton<http.Client>(() => http.Client());
+  getIt.registerLazySingleton<Network>(() => NetworkImpl(getIt()));
 
   // shared preferences
   getIt.registerSingletonAsync<SharedPreferences>(

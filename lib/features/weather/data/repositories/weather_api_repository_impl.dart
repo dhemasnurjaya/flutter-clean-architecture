@@ -1,5 +1,4 @@
 import 'package:clean_architecture/core/error/failure.dart';
-import 'package:clean_architecture/core/error/server_failure.dart';
 import 'package:clean_architecture/features/weather/data/data_sources/remote/weather_api_remote_data_source.dart';
 import 'package:clean_architecture/features/weather/domain/entities/current_weather.dart';
 import 'package:clean_architecture/features/weather/domain/repositories/weather_api_repository.dart';

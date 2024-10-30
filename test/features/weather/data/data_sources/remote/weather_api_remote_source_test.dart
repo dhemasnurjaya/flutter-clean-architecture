@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../_responses/_response.dart';
+import '../../../../../_responses/_response.dart';
 import 'weather_api_remote_source_test.mocks.dart';
 
 @GenerateMocks([Env, Network])
